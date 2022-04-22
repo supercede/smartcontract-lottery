@@ -15,7 +15,7 @@ contract Lottery is Ownable, VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;
     uint256 public randomResult;
-    address payable lotteryWinner;
+    address payable public lotteryWinner;
 
     enum LOTTERY_STATE {
         OPEN,

@@ -6,6 +6,7 @@ from brownie import (
     MockV3Aggregator,
     LinkToken,
     Contract,
+    interface,
 )
 
 LOCAL_ENVIRONMENTS = ["development", "ganache-local"]
@@ -57,8 +58,25 @@ def get_contract(contract_name):
         contract = contract_mock[-1]
     else:
         contract_address = network.show_active()[contract_name]
+        # create contract from abi and addresss
         contract = Contract.from_abi(
             contract_mock.name, contract_address, contract_mock.abi
         )
 
     return contract
+
+
+def fund_with_link(
+    contract_address, account=None, link_token=None, amount=100000000000000000
+):
+    account = account if account else get_account()
+    link_token = link_token if link_token else get_contract("link_token")
+
+    # Creating contract from an interface
+
+    # link_token_contract = interface.LinkTokenInterface(link_token.address)
+    # tx = link_token_contract.transfer(contract_address, amount, {"from": account})
+
+    tx = link_token.transfer(contract_address, amount, {"from": account})
+    print("Funded {} with link".format(contract_address))
+    return tx
