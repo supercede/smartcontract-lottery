@@ -22,7 +22,7 @@ contract Lottery is Ownable, VRFConsumerBase {
         CLOSED,
         CALCULATING_WINNER
     }
-    LOTTERY_STATE lottery_state;
+    LOTTERY_STATE public lottery_state;
 
     constructor(
         address _priceFeed,

@@ -13,7 +13,7 @@ LOCAL_ENVIRONMENTS = ["development", "ganache-local"]
 FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork", "mainnet-fork-dev"]
 
 DECIMALS = 8  # Price feed aggregator usually returns 8 decimals
-STARTING_PRICE = 200000000000  # 2000 + 8 decimals
+STARTING_PRICE = 200000000000  # 2000 + 8 decimals (Mocking with 1ETH = 2000USD)
 
 # dictionary of contracts to mocks (key - config name, value - mock)
 contracts_to_mock = {
@@ -57,10 +57,10 @@ def get_contract(contract_name):
             deploy_mocks()
         contract = contract_mock[-1]
     else:
-        contract_address = network.show_active()[contract_name]
+        contract_address = config["networks"][network.show_active()][contract_name]
         # create contract from abi and addresss
         contract = Contract.from_abi(
-            contract_mock.name, contract_address, contract_mock.abi
+            contract_mock._name, contract_address, contract_mock.abi
         )
 
     return contract

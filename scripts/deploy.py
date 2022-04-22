@@ -16,6 +16,8 @@ def deploy_lottery():
     )
     print("lottery deployed")
 
+    return lottery
+
 
 def start_lottery():
     print("starting lottery")
@@ -42,7 +44,7 @@ def end_lottery():
     tx.wait(1)
     end_tx = lottery.endLottery({"from": account})
     end_tx.wait(1)
-    time.sleep(60)
+    time.sleep(200)
 
     print(f"The winner is {lottery.lotteryWinner()}")
 
